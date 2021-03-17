@@ -10,6 +10,7 @@ with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
 VERSION = '0.0.1'
 DESCRIPTION = 'Option stategy visualizer'
 LONG_DESCRIPTION = 'Option strategy visualizer'
+URL = 'https://github.com/abhijith-git/opstrat'
 
 # Setting up
 setup(
@@ -20,7 +21,8 @@ setup(
     description=DESCRIPTION,
     long_description_content_type="text/markdown",
     long_description=long_description,
-    packages=find_packages(),
+    url=URL,
+    packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
     install_requires=['matplotlib', 'pandas', 'numpy'],
     keywords=['python', 'video', 'stream', 'video stream', 'camera stream', 'sockets'],
     classifiers=[
