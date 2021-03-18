@@ -1,16 +1,15 @@
 # opstrat
-
 opstrat is a Python library for visualizing options.
 
-## Version 
-0.0.1
+## Latest Version 
+0.0.12
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install opstrat.
 
 ```bash
-pip install opstrat==0.0.2
+pip install opstrat
 ```
 
 ## Usage
@@ -26,5 +25,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
-## License
+## Content License
 [MIT](https://choosealicense.com/licenses/mit/)
+
+

@@ -11,6 +11,35 @@ abb={'c': 'Call',
     's': 'Short'}
 
 def option_plotter(op_type='c',spot=725, spot_range=5,strike=720,tr_type='b',op_pr=10):
+    """
+    Plots a basic option payoff diagram for a single option
+    Parameters
+    ----------
+    op_type: kind {'c','p'}, default:'c'
+       Opion type>> 'c': call option, 'p':put option 
+    
+    spot: int, float, default: 725 
+       Spot Price
+       
+    spot_range: int, float, optional, default: 5
+       Range of spot variation in percentage 
+       
+    strike: int, float, default: 720
+       Strike Price
+    
+    tr_type: kind {'b', 's'} default:'b'
+       Transaction Type>> 'b': long, 's': short
+
+    op_pr: int, float, default: 10
+    Option Price
+    
+    Example
+    -------
+    from opstrat.basic_single import option_plotter
+    option_plotter(op_type='p', spot_range=20, spot=1000, strike=950)
+    #Plots option payoff diagram for put option with spot price=1000, strike price=950, range=+/-20%
+    
+    """
 
     
     op_type=str.lower(op_type)
