@@ -46,6 +46,7 @@ def option_plotter(spot_range=20, spot=100,
     
     """
     x=spot*np.arange(100-spot_range,101+spot_range,0.01)/100
+    y0=np.zeros_like(x)
     
     def check_optype(op_type):
         if (op_type not in ['p','c']):
@@ -94,6 +95,8 @@ def option_plotter(spot_range=20, spot=100,
         plt.legend(loc='upper right')
         title="Multiple Options Plotter"
         plt.title(title)
+        plt.fill_between(x, y, 0, alpha=0.2, where=y>y0, facecolor='green', interpolate=True)
+        plt.fill_between(x, y, 0, alpha=0.2, where=y<y0, facecolor='red', interpolate=True)
         plt.tight_layout()
         plt.show()
 
