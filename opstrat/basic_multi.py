@@ -39,8 +39,8 @@ def multi_plotter(spot_range=20, spot=100,
     op1={'op_type':'c','strike':110,'tr_type':'s','op_pr':2}
     op2={'op_type':'p','strike':95,'tr_type':'s','op_pr':6}
     
-    from opstrat.basic_multi import option_plotter
-    option_plotter(spot_range=20, spot=100, op_list=[op1,op2])
+    import opstrat  as op
+    op.multi_plotter(spot_range=20, spot=100, op_list=[op1,op2])
     
     #Plots option payoff diagrams for each op1 and op2 and combined payoff
     

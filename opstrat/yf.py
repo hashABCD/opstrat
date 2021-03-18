@@ -11,6 +11,40 @@ abb={'c': 'Call',
 def yf_plotter(ticker='msft',exp='default',spot_range=10,
                op_list=[{'op_type':'c','strike':250,'tr_type':'b'},
                         {'op_type':'p','strike':225,'tr_type':'b'}]):
+    """
+    Plots a basic option payoff diagram for a multiple options and resultant payoff diagram
+    
+    Parameters
+    ----------
+    ticker: string, default: 'msft' stock ticker for Microsoft.Inc
+       Stock Ticker
+    exp: string default: next option expiration date
+        Option expiration date in 'YYYY-MM-DD' format
+       
+    spot_range: int, float, optional, default: 10
+       Range of spot variation in percentage 
+       
+    op_list: list of dictionary
+       
+       Each dictionary must contiain following keys
+       'strike': int, float, default: 720
+           Strike Price
+       'tr_type': kind {'b', 's'} default:'b'
+          Transaction Type>> 'b': long, 's': short
+       'op_type': kind {'c','p'}, default:'c'
+          Opion type>> 'c': call option, 'p':put option 
+    
+    Example
+    -------
+    op1={'op_type':'c','strike':250,'tr_type':'b'}
+    op2={'op_type':'p','strike':225,'tr_type':'b'}
+    
+    import opstrat as op
+    op.yf_plotter(ticker='msft',exp='2021-03-26',spot_range=10, op_list=[op1,op2])
+    
+    #Plots option payoff diagrams for each op1 and op2 and combined payoff 
+    
+    """
     
     
     def check_ticker(ticker):
@@ -101,8 +135,8 @@ def yf_plotter(ticker='msft',exp='default',spot_range=10,
         plt.legend()
         plt.legend(loc='upper right')
         title="OPTION STRATEGY ("+str.upper(ticker)+') '+' Exp :'+str(exp)
-        plt.fill_between(x, y, 0, alpha=0.3, where=y>y0, facecolor='green', interpolate=True)
-        plt.fill_between(x, y, 0, alpha=0.3, where=y<y0, facecolor='red', interpolate=True)
+        plt.fill_between(x, y, 0, alpha=0.2, where=y>y0, facecolor='green', interpolate=True)
+        plt.fill_between(x, y, 0, alpha=0.2, where=y<y0, facecolor='red', interpolate=True)
         plt.title(title)
         plt.tight_layout()
         plt.show()

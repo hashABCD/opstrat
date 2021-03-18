@@ -10,7 +10,7 @@ abb={'c': 'Call',
     'b': 'Long',
     's': 'Short'}
 
-def single_plotter(op_type='c',spot=725, spot_range=5,strike=720,tr_type='b',op_pr=10):
+def single_plotter(op_type='c',spot=100, spot_range=10,strike=102,tr_type='b',op_pr=2):
     """
     Plots a basic option payoff diagram for a single option
     Parameters
@@ -18,13 +18,13 @@ def single_plotter(op_type='c',spot=725, spot_range=5,strike=720,tr_type='b',op_
     op_type: kind {'c','p'}, default:'c'
        Opion type>> 'c': call option, 'p':put option 
     
-    spot: int, float, default: 725 
+    spot: int, float, default: 100 
        Spot Price
        
     spot_range: int, float, optional, default: 5
        Range of spot variation in percentage 
        
-    strike: int, float, default: 720
+    strike: int, float, default: 102
        Strike Price
     
     tr_type: kind {'b', 's'} default:'b'
@@ -35,8 +35,8 @@ def single_plotter(op_type='c',spot=725, spot_range=5,strike=720,tr_type='b',op_
     
     Example
     -------
-    from opstrat.basic_single import option_plotter
-    option_plotter(op_type='p', spot_range=20, spot=1000, strike=950)
+    import opstrat as op
+    op.single_plotter(op_type='p', spot_range=20, spot=1000, strike=950)
     #Plots option payoff diagram for put option with spot price=1000, strike price=950, range=+/-20%
     
     """
@@ -80,8 +80,8 @@ def single_plotter(op_type='c',spot=725, spot_range=5,strike=720,tr_type='b',op_
         plt.axhline(color='k', linestyle='--')
         plt.axvline(x=spot, color='r', linestyle='--')
         title=str(abb[op_type])+' '+str(abb[tr_type])+'\n St price :'+str(strike)
-        plt.fill_between(x, y, 0, alpha=0.3, where=y>y0, facecolor='green', interpolate=True)
-        plt.fill_between(x, y, 0, alpha=0.3, where=y<y0, facecolor='red', interpolate=True)
+        plt.fill_between(x, y, 0, alpha=0.2, where=y>y0, facecolor='green', interpolate=True)
+        plt.fill_between(x, y, 0, alpha=0.2, where=y<y0, facecolor='red', interpolate=True)
         plt.title(title)
         plt.tight_layout()
         plt.show()
