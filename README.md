@@ -2,7 +2,7 @@
 opstrat is a Python library for visualizing options.
 
 ## Latest Version 
-0.0.15
+0.0.18
 
 ## Installation
 

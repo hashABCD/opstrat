@@ -8,7 +8,7 @@ abb={'c': 'Call',
     'b': 'Long',
     's': 'Short'}
 
-def option_plotter(spot_range=20, spot=100,
+def multi_plotter(spot_range=20, spot=100,
                 op_list=[{'op_type':'c','strike':110,'tr_type':'s','op_pr':2},
                 {'op_type':'p','strike':95,'tr_type':'s','op_pr':6}]):
     """

@@ -10,7 +10,7 @@ abb={'c': 'Call',
     'b': 'Long',
     's': 'Short'}
 
-def option_plotter(op_type='c',spot=725, spot_range=5,strike=720,tr_type='b',op_pr=10):
+def single_plotter(op_type='c',spot=725, spot_range=5,strike=720,tr_type='b',op_pr=10):
     """
     Plots a basic option payoff diagram for a single option
     Parameters

@@ -8,7 +8,7 @@ abb={'c': 'Call',
     'b': 'Long',
     's': 'Short'}
 
-def option_plotter(ticker='msft',exp='default',spot_range=10,
+def yf_plotter(ticker='msft',exp='default',spot_range=10,
                op_list=[{'op_type':'c','strike':250,'tr_type':'b'},
                         {'op_type':'p','strike':225,'tr_type':'b'}]):
     
