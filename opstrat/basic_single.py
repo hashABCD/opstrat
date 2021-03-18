@@ -84,5 +84,3 @@ def option_plotter(op_type='c',spot=725, spot_range=5,strike=720,tr_type='b',op_
         plt.show()
     
     plotter(x,y)
-    
-option_plotter()
