@@ -1,4 +1,4 @@
-__version__ = "0.0.20"
+__version__ = "0.0.22"
 __author__ = "Abhijith Chandradas"
 
 from .basic_multi import *

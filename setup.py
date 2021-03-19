@@ -1,13 +1,19 @@
 from codecs import open
 import os
 from setuptools import setup, find_packages
-import pypandoc
+#import pypandoc
+
+with open('README.md') as readme_file:
+    README = readme_file.read()
+
 
 '''  
 here = os.path.abspath(os.path.dirname(__file__))
 
 with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
+'''
+
 '''
 try:
     long_description = pypandoc.convert('README.md', 'rst')
@@ -18,7 +24,7 @@ except OSError:
     # pandoc is not installed, fallback to using raw contents
     with io.open('README.md', encoding="utf-8") as f:
         long_description = f.read()
-        
+'''
         
 '''
 try:
@@ -28,9 +34,9 @@ except(IOError, ImportError):
     long_description = open('README.md').read()
 '''
 
-VERSION = '0.0.20'
+VERSION = '0.0.22'
 DESCRIPTION = 'Option stategy visualizer'
-LONG_DESCRIPTION = DESCRIPTION
+#LONG_DESCRIPTION = DESCRIPTION
 URL = 'https://github.com/abhijith-git/opstrat'
 
 # Setting up
@@ -40,8 +46,8 @@ setup(
     author="Abhijith Chandradas",
     author_email="<abhijith.chandradas@gmail.com>",
     description=DESCRIPTION,
-    long_description=long_description,
     long_description_content_type='text/markdown',
+    long_description=README,
     url=URL,
     license='MIT',
     packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
@@ -57,13 +63,19 @@ setup(
               'data visualization', 
               'stock market'],
     classifiers=[
-        "Development Status :: 1 - Planning",
-        "Intended Audience :: Developers",
-        "Programming Language :: Python :: 3",
-        "Operating System :: Unix",
-        "Operating System :: MacOS :: MacOS X",
-        "Operating System :: Microsoft :: Windows",
-    ]
+            "Development Status :: 1 - Planning",
+            "Intended Audience :: Developers",
+            "Intended Audience :: Education",
+            "Intended Audience :: Science/Research",
+            "Intended Audience :: Financial and Insurance Industry",
+            "License :: OSI Approved :: MIT License",
+            "Natural Language :: English",
+            "Operating System :: OS Independent",
+            "Topic :: Scientific/Engineering :: Visualization",
+            'Topic :: Scientific/Engineering :: Information Analysis',
+            "Topic :: Office/Business :: Financial :: Investment",
+            "Topic :: Office/Business :: Financial",
+            "Programming Language :: Python :: 3"]
 )
 
 #Display README.md in PYPI
