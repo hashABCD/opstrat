@@ -10,7 +10,8 @@ abb={'c': 'Call',
 
 def yf_plotter(ticker='msft',exp='default',spot_range=10,
                op_list=[{'op_type':'c','strike':250,'tr_type':'b'},
-                        {'op_type':'p','strike':225,'tr_type':'b'}]):
+                        {'op_type':'p','strike':225,'tr_type':'b'}], 
+                        save=False, file='fig.png'):
     """
     Plots a basic option payoff diagram for a multiple options and resultant payoff diagram
     
@@ -33,6 +34,12 @@ def yf_plotter(ticker='msft',exp='default',spot_range=10,
           Transaction Type>> 'b': long, 's': short
        'op_type': kind {'c','p'}, default:'c'
           Opion type>> 'c': call option, 'p':put option 
+    
+    save: Boolean, default False
+        Save figure
+    
+    file: String, default: 'fig.png'
+        Filename with extension
     
     Example
     -------
@@ -139,6 +146,8 @@ def yf_plotter(ticker='msft',exp='default',spot_range=10,
         plt.fill_between(x, y, 0, alpha=0.2, where=y<y0, facecolor='red', interpolate=True)
         plt.title(title)
         plt.tight_layout()
+        if save==True:
+            plt.savefig(file)
         plt.show()
 
     plotter()           

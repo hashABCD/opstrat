@@ -10,7 +10,8 @@ abb={'c': 'Call',
 
 def multi_plotter(spot_range=20, spot=100,
                 op_list=[{'op_type':'c','strike':110,'tr_type':'s','op_pr':2},
-                {'op_type':'p','strike':95,'tr_type':'s','op_pr':6}]):
+                {'op_type':'p','strike':95,'tr_type':'s','op_pr':6}], 
+                         save=False, file='fig.png'):
     """
     Plots a basic option payoff diagram for a multiple options and resultant payoff diagram
     
@@ -33,6 +34,12 @@ def multi_plotter(spot_range=20, spot=100,
           Option Price
        'op_type': kind {'c','p'}, default:'c'
           Opion type>> 'c': call option, 'p':put option 
+    
+    save: Boolean, default False
+        Save figure
+    
+    file: String, default: 'fig.png'
+        Filename with extension
     
     Example
     -------
@@ -98,6 +105,8 @@ def multi_plotter(spot_range=20, spot=100,
         plt.fill_between(x, y, 0, alpha=0.2, where=y>y0, facecolor='green', interpolate=True)
         plt.fill_between(x, y, 0, alpha=0.2, where=y<y0, facecolor='red', interpolate=True)
         plt.tight_layout()
+        if save==True:
+            plt.savefig(file)
         plt.show()
 
     plotter()      

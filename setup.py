@@ -34,7 +34,7 @@ except(IOError, ImportError):
     long_description = open('README.md').read()
 '''
 
-VERSION = '0.0.22'
+VERSION = '0.0.23'
 DESCRIPTION = 'Option stategy visualizer'
 #LONG_DESCRIPTION = DESCRIPTION
 URL = 'https://github.com/abhijith-git/opstrat'

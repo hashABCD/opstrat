@@ -10,7 +10,7 @@ abb={'c': 'Call',
     'b': 'Long',
     's': 'Short'}
 
-def single_plotter(op_type='c',spot=100, spot_range=10,strike=102,tr_type='b',op_pr=2):
+def single_plotter(op_type='c',spot=100, spot_range=10,strike=102,tr_type='b',op_pr=2, save=False, file='fig.png'):
     """
     Plots a basic option payoff diagram for a single option
     Parameters
@@ -32,6 +32,12 @@ def single_plotter(op_type='c',spot=100, spot_range=10,strike=102,tr_type='b',op
 
     op_pr: int, float, default: 10
     Option Price
+    
+    save: Boolean, default False
+        Save figure
+    
+    file: String, default: 'fig.png'
+        Filename with extension
     
     Example
     -------
@@ -84,6 +90,8 @@ def single_plotter(op_type='c',spot=100, spot_range=10,strike=102,tr_type='b',op
         plt.fill_between(x, y, 0, alpha=0.2, where=y<y0, facecolor='red', interpolate=True)
         plt.title(title)
         plt.tight_layout()
+        if save==True:
+            plt.savefig(file)
         plt.show()
     
     plotter(x,y)
