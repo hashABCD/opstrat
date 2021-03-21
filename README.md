@@ -68,7 +68,7 @@ Option Premium: 10 <br>
 ```python
 op.single_plotter()
 ```
-![png](https://raw.githubusercontent.com/abhijith-git/opstrat/blob/main/readme_files/fig1.png)
+![png](https://raw.githubusercontent.com/abhijith-git/opstrat/main/readme_files/fig1.png)
 
 Green : Profit<br>Red : Loss
 
@@ -82,7 +82,7 @@ Option Premium : 12.5<br>
 ```python
 op.single_plotter(spot=460, strike=460, op_type='p', tr_type='s', op_pr=12.5)
 ```
-![png](https://raw.githubusercontent.com/abhijith-git/opstrat/blob/main/readme_files/fig2.png)
+![png](https://raw.githubusercontent.com/abhijith-git/opstrat/main/readme_files/fig2.png)
 
 # 2. multi_plotter()
 
@@ -117,7 +117,7 @@ Options trading that involve: <br>&emsp;(a)selling of a slightly out-of-the-mone
 ```python
 op.multi_plotter()
 ```
-![png](https://raw.githubusercontent.com/abhijith-git/opstrat/blob/main/readme_files/fig3.png)
+![png](https://raw.githubusercontent.com/abhijith-git/opstrat/main/readme_files/fig3.png)
 
 ### 2.b Example: Iron Condor (Option strategy with 4 options)
 
@@ -139,7 +139,7 @@ op4={'op_type': 'p', 'strike': 205, 'tr_type': 'b', 'op_pr': 5.52}
 op_list=[op1, op2, op3, op4]
 op.multi_plotter(spot=212.26,spot_range=10, op_list=op_list)
 ```
-![png](https://raw.githubusercontent.com/abhijith-git/opstrat/blob/main/readme_files/fig4.png)
+![png](https://raw.githubusercontent.com/abhijith-git/opstrat/main/readme_files/fig4.png)
 
 # 3. yf_plotter()
 
@@ -173,7 +173,7 @@ Option 2: Buy Put option at Strike price 225
 ```python
 op.yf_plotter()
 ```
-![png](https://raw.githubusercontent.com/abhijith-git/opstrat/blob/main/readme_files/fig5.png)
+![png](https://raw.githubusercontent.com/abhijith-git/opstrat/main/readme_files/fig5.png)
 
 ### 3.b Example: Strangle on Amazon 
 
@@ -191,7 +191,7 @@ op.yf_plotter(ticker='amzn',
               exp='default', 
               op_list=[op_1, op_2])
 ```
-![png](https://raw.githubusercontent.com/abhijith-git/opstrat/blob/main/readme_files/fig6.png)
+![png](https://raw.githubusercontent.com/abhijith-git/opstrat/main/readme_files/fig6.png)
 
 ## 4. Save figure
 
@@ -201,7 +201,7 @@ If no filename is provided, the figure will be saved as fig in png format.
 ```python
 op.single_plotter(save=True,file='simple_option.jpeg')
 ```
-![png](https://raw.githubusercontent.com/abhijith-git/opstrat/blob/main/readme_files/simple_option.jpeg)
+![png](https://raw.githubusercontent.com/abhijith-git/opstrat/main/readme_files/simple_option.jpeg)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
