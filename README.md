@@ -1,4 +1,3 @@
-
 # opstrat
 
 [![PyPI](https://img.shields.io/pypi/v/opstrat)](https://pypi.org/project/opstrat/)
@@ -8,6 +7,9 @@
 [![Twitter Follow](https://img.shields.io/twitter/follow/abhijith_abcd?style=social)](https://twitter.com/intent/user?screen_name=abhijith_abcd)
 
 Python library for visualizing options.
+
+## Requirements
+pandas, numpy, matplotlib, seaborn, yfinance
 
 
 ## Installation
@@ -210,3 +212,8 @@ Please make sure to update tests as appropriate.
 
 ## Content License
 [MIT](https://choosealicense.com/licenses/mit/)
+
+### Thanks to 
+[Stackoverflow Community](https://stackoverflow.com/)<br>
+[Ran Aroussi](https://github.com/ranaroussi) : [yfinance](https://pypi.org/project/yfinance/)<br> 
+[Daniel Goldfarb](https://github.com/DanielGoldfarb) : [mplfinance](https://pypi.org/project/mplfinance/)
