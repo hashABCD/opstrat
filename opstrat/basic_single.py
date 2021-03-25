@@ -82,6 +82,7 @@ def single_plotter(op_type='c',spot=100, spot_range=10,strike=102,tr_type='b',op
     y0=np.zeros_like(x)
     
     def plotter(x,y):
+        plt.figure(figsize=(10,6))
         sns.lineplot(x=x, y=y)
         plt.axhline(color='k', linestyle='--')
         plt.axvline(x=spot, color='r', linestyle='--')

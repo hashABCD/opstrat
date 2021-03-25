@@ -5,6 +5,7 @@
 [![GitHub top language](https://img.shields.io/github/languages/top/abhijith-git/opstrat)](https://github.com/abhijith-git/opstrat)
 [![GitHub Repo stars](https://img.shields.io/github/stars/abhijith-git/opstrat?style=social)](https://github.com/abhijith-git/opstrat)
 [![Twitter Follow](https://img.shields.io/twitter/follow/abhijith_abcd?style=social)](https://twitter.com/intent/user?screen_name=abhijith_abcd)
+[![Youtube](https://img.shields.io/youtube/views/EU3L4ziz3nk?style=social)](https://www.youtube.com/watch?v=EU3L4ziz3nk)
 
 Python library for visualizing options.
 
@@ -37,7 +38,7 @@ pip install opstrat --upgrade
 ```
 
 # 1. single_plotter()
-Used for plotting payoff diagram for a single option
+Used for plotting payoff diagram involving multiple options.
 
 Parameters
 ---
