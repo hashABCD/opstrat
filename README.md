@@ -218,3 +218,7 @@ Please make sure to update tests as appropriate.
 [Stackoverflow Community](https://stackoverflow.com/)<br>
 [Ran Aroussi](https://github.com/ranaroussi) : [yfinance](https://pypi.org/project/yfinance/)<br> 
 [Daniel Goldfarb](https://github.com/DanielGoldfarb) : [mplfinance](https://pypi.org/project/mplfinance/)
+
+
+### Tutorial in Video Format
+[![Watch the video](https://img.youtube.com/vi/EU3L4ziz3nk/maxresdefault.jpg)](https://youtu.be/EU3L4ziz3nk)
