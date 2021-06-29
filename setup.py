@@ -7,34 +7,7 @@ with open('README.md') as readme_file:
     README = readme_file.read()
 
 
-'''  
-here = os.path.abspath(os.path.dirname(__file__))
-
-with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
-'''
-
-'''
-try:
-    long_description = pypandoc.convert('README.md', 'rst')
-    long_description = long_description.replace("\r","") # Do not forget this line
-except OSError:
-    print("Pandoc not found. Long_description conversion failure.")
-    import io
-    # pandoc is not installed, fallback to using raw contents
-    with io.open('README.md', encoding="utf-8") as f:
-        long_description = f.read()
-'''
-        
-'''
-try:
-    import pypandoc
-    long_description = pypandoc.convert('README.md', 'rst')
-except(IOError, ImportError):
-    long_description = open('README.md').read()
-'''
-
-VERSION = '0.1.2'
+VERSION = '0.1.3'
 DESCRIPTION = 'Option stategy visualizer'
 #LONG_DESCRIPTION = DESCRIPTION
 URL = 'https://github.com/abhijith-git/opstrat'
