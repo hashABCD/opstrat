@@ -3,8 +3,8 @@
 [![PyPI](https://img.shields.io/pypi/v/opstrat)](https://pypi.org/project/opstrat/)
 [![PyPI - License](https://img.shields.io/pypi/l/opstrat)](https://pypi.org/project/opstrat/)
 [![GitHub top language](https://img.shields.io/github/languages/top/abhijith-git/opstrat)](https://github.com/abhijith-git/opstrat)
-[![GitHub Repo stars](https://img.shields.io/github/stars/abhijith-git/opstrat?style=social)](https://github.com/abhijith-git/opstrat)
-[![Twitter Follow](https://img.shields.io/twitter/follow/abhijith_abcd?style=social)](https://twitter.com/intent/user?screen_name=abhijith_abcd)
+[![GitHub Repo stars](https://img.shields.io/github/stars/abhijith-git/opstrat?style=social)](https://github.com/hashabcd/opstrat)
+[![Twitter Follow](https://img.shields.io/twitter/follow/abhijith_abcd?style=social)](https://twitter.com/intent/user?screen_name=hashabcd)
 [![Youtube](https://img.shields.io/youtube/views/EU3L4ziz3nk?style=social)](https://www.youtube.com/watch?v=EU3L4ziz3nk)
 
 Python library for visualizing options.
