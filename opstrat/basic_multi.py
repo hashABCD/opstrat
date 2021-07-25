@@ -1,7 +1,9 @@
-#basic_multi
+#multiplotter
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+
+from helpers import payoff_calculator, check_optype, check_trtype
 
 abb={'c': 'Call',
     'p': 'Put',
@@ -9,9 +11,9 @@ abb={'c': 'Call',
     's': 'Short'}
 
 def multi_plotter(spot_range=20, spot=100,
-                op_list=[{'op_type':'c','strike':110,'tr_type':'s','op_pr':2},
-                {'op_type':'p','strike':95,'tr_type':'s','op_pr':6}], 
-                         save=False, file='fig.png'):
+                op_list=[{'op_type':'c','strike':110,'tr_type':'s','op_pr':2,'contract':1},
+                {'op_type':'p','strike':95,'tr_type':'s','op_pr':6,'contract':1}], 
+                  save=False, file='fig.png'):
     """
     Plots a basic option payoff diagram for a multiple options and resultant payoff diagram
     
@@ -33,7 +35,9 @@ def multi_plotter(spot_range=20, spot=100,
        'op_pr': int, float, default: 10
           Option Price
        'op_type': kind {'c','p'}, default:'c'
-          Opion type>> 'c': call option, 'p':put option 
+          Opion type>> 'c': call option, 'p':put option
+       'contracts': int default:1, optional
+           Number of contracts
     
     save: Boolean, default False
         Save figure
@@ -43,8 +47,8 @@ def multi_plotter(spot_range=20, spot=100,
     
     Example
     -------
-    op1={'op_type':'c','strike':110,'tr_type':'s','op_pr':2}
-    op2={'op_type':'p','strike':95,'tr_type':'s','op_pr':6}
+    op1={'op_type':'c','strike':110,'tr_type':'s','op_pr':2,'contract':1}
+    op2={'op_type':'p','strike':95,'tr_type':'s','op_pr':6,'contract':1}
     
     import opstrat  as op
     op.multi_plotter(spot_range=20, spot=100, op_list=[op1,op2])
@@ -53,27 +57,7 @@ def multi_plotter(spot_range=20, spot=100,
     
     """
     x=spot*np.arange(100-spot_range,101+spot_range,0.01)/100
-    y0=np.zeros_like(x)
-    
-    def check_optype(op_type):
-        if (op_type not in ['p','c']):
-            raise ValueError("Input 'p' for put and 'c' for call!")
-    def check_trtype(tr_type):
-        if (tr_type not in ['b','s']):
-            raise ValueError("Input 'b' for Buy and 's' for Sell!")           
-    
-    def payoff_calculator(op_type, strike, op_pr, tr_type):
-        y=[]
-        if op_type=='c':
-            for i in range(len(x)):
-                y.append(max((x[i]-strike-op_pr),-op_pr))
-        else:
-            for i in range(len(x)):
-                y.append(max(strike-x[i]-op_pr,-op_pr))
-
-        if tr_type=='s':
-            y=-np.array(y)
-        return y
+    y0=np.zeros_like(x)         
     
     y_list=[]
     for op in op_list:
@@ -84,14 +68,24 @@ def multi_plotter(spot_range=20, spot=100,
         
         strike=op['strike']
         op_pr=op['op_pr']
-        y_list.append(payoff_calculator(op_type, strike, op_pr, tr_type))
+        try:
+            contract=op['contract']
+        except:
+            contract=1
+        y_list.append(payoff_calculator(x, op_type, strike, op_pr, tr_type, contract))
     
 
     def plotter():
         y=0
         plt.figure(figsize=(10,6))
         for i in range (len(op_list)):
-            label=str(abb[op_list[i]['tr_type']])+' '+str(abb[op_list[i]['op_type']])+' ST: '+str(op_list[i]['strike'])
+            try:
+                contract=str(op_list[i]['contract'])  
+            except:
+                contract='1'
+                
+            label=contract+' '+str(abb[op_list[i]['tr_type']])+' '+str(abb[op_list[i]['op_type']])+' ST: '+str(op_list[i]['strike'])
+            print(len(x),len(y_list[i]))
             sns.lineplot(x=x, y=y_list[i], label=label, alpha=0.5)
             y+=np.array(y_list[i])
         

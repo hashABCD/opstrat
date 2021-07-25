@@ -7,10 +7,10 @@ with open('README.md') as readme_file:
     README = readme_file.read()
 
 
-VERSION = '0.1.3'
+VERSION = '0.1.4'
 DESCRIPTION = 'Option stategy visualizer'
 #LONG_DESCRIPTION = DESCRIPTION
-URL = 'https://github.com/abhijith-git/opstrat'
+URL = 'https://github.com/hashabcd/opstrat'
 
 # Setting up
 setup(

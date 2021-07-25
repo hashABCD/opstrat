@@ -3,14 +3,20 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import yfinance as yf
 
+from helpers import check_ticker, check_optype, check_trtype, payoff_calculator
+
+import warnings
+warnings.filterwarnings('ignore')
+
+
 abb={'c': 'Call',
     'p': 'Put',
     'b': 'Long',
     's': 'Short'}
 
 def yf_plotter(ticker='msft',exp='default',spot_range=10,
-               op_list=[{'op_type':'c','strike':250,'tr_type':'b'},
-                        {'op_type':'p','strike':225,'tr_type':'b'}], 
+               op_list=[{'op_type':'c','strike':250,'tr_type':'b', 'contract':1},
+                        {'op_type':'p','strike':225,'tr_type':'b', 'contract':1}], 
                         save=False, file='fig.png'):
     """
     Plots a basic option payoff diagram for a multiple options and resultant payoff diagram
@@ -34,6 +40,8 @@ def yf_plotter(ticker='msft',exp='default',spot_range=10,
           Transaction Type>> 'b': long, 's': short
        'op_type': kind {'c','p'}, default:'c'
           Opion type>> 'c': call option, 'p':put option 
+       'contracts': int default:1, optional
+          Number of contracts
     
     save: Boolean, default False
         Save figure
@@ -43,8 +51,8 @@ def yf_plotter(ticker='msft',exp='default',spot_range=10,
     
     Example
     -------
-    op1={'op_type':'c','strike':250,'tr_type':'b'}
-    op2={'op_type':'p','strike':225,'tr_type':'b'}
+    op1={'op_type':'c','strike':250,'tr_type':'b', 'contract':1}
+    op2={'op_type':'p','strike':225,'tr_type':'b','contract':3}
     
     import opstrat as op
     op.yf_plotter(ticker='msft',exp='2021-03-26',spot_range=10, op_list=[op1,op2])
@@ -52,21 +60,11 @@ def yf_plotter(ticker='msft',exp='default',spot_range=10,
     #Plots option payoff diagrams for each op1 and op2 and combined payoff 
     
     """
-    
-    
-    def check_ticker(ticker):
-        """
-        Check ticker
-        """
-        try:
-            spot=yf.Ticker(ticker).info['bid']
-        except KeyError:
-            raise ValueError('Ticker not recognized')
-     
-    check_ticker(ticker)
-    
-    spot=yf.Ticker(ticker).info['bid']
+    #Check input and assigns spot price
+    spot=check_ticker(ticker)
+    #Expiry dates
     exp_list=yf.Ticker(ticker).options
+    
     x=spot*np.arange(100-spot_range,101+spot_range,0.01)/100
     y0=np.zeros_like(x)
 
@@ -82,29 +80,11 @@ def yf_plotter(ticker='msft',exp='default',spot_range=10,
         exp=yf.Ticker('msft').options[0]
     else:
         check_exp(exp)
-    
-    def check_optype(op_type):
-        if (op_type not in ['p','c']):
-            raise ValueError("Input 'p' for put and 'c' for call!")
-    def check_trtype(tr_type):
-        if (tr_type not in ['b','s']):
-            raise ValueError("Input 'b' for Buy and 's' for Sell!")           
+               
     def check_strike(df, strike):
         if strike not in df.strike.unique():
             raise ValueError('Option for the given Strike Price not available!')
     
-    def payoff_calculator(op_type, strike, op_pr, tr_type):
-        y=[]
-        if op_type=='c':
-            for i in range(len(x)):
-                y.append(max((x[i]-strike-op_pr),-op_pr))
-        else:
-            for i in range(len(x)):
-                y.append(max(strike-x[i]-op_pr,-op_pr))
-
-        if tr_type=='s':
-            y=-np.array(y)
-        return y
     y_list=[]
     
     for op in op_list:
@@ -118,21 +98,33 @@ def yf_plotter(ticker='msft',exp='default',spot_range=10,
             df=yf.Ticker(ticker).option_chain(exp).puts
         else:
             df=yf.Ticker(ticker).option_chain(exp).calls
-       
     
         strike=op['strike']
         check_strike(df, strike)
-      
         op_pr=df[df.strike==strike].lastPrice.sum()
+        try:
+            contract=op['contract']
+            print('Setting contract =', contract)
+        except:
+            contract=1
+            print('default')
         
-        y_list.append(payoff_calculator(op_type, strike, op_pr, tr_type))
+        y_list.append(payoff_calculator(x, op_type, strike, op_pr, tr_type, contract))
     
 
     def plotter():
         y=0
         plt.figure(figsize=(10,6))
         for i in range (len(op_list)):
-            label=str(abb[op_list[i]['tr_type']])+' '+str(abb[op_list[i]['op_type']])+' ST: '+str(op_list[i]['strike'])
+            try:
+                contract=str(op_list[i]['contract'])  
+            except:
+                contract='1'
+                
+            label=contract+' '+str(abb[op_list[i]['tr_type']])+' '+str(abb[op_list[i]['op_type']])+' ST: '+str(op_list[i]['strike'])
+            print(label)
+            print(len(x))
+            print(len(y_list[i]))
             sns.lineplot(x=x, y=y_list[i], label=label, alpha=0.5)
             y+=np.array(y_list[i])
         

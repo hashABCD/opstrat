@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import warnings 
+from helpers import check_optype, check_trtype
 
 warnings.filterwarnings('ignore')
 
@@ -50,18 +51,8 @@ def single_plotter(op_type='c',spot=100, spot_range=10,strike=102,tr_type='b',op
     
     op_type=str.lower(op_type)
     tr_type=str.lower(tr_type)
-    
-
-    def check_inputs():
-        """
-        Check inputs are proper
-        """
-        if op_type not in ['p','c']:
-            raise ValueError("Input 'p' for put and 'c' for call!")
-        if tr_type not in ['b','s']:
-            raise ValueError("Input 'b' for Buy and 's' for Sell!")
-    
-    check_inputs()
+    check_optype(op_type)
+    check_trtype(tr_type)
     
     def payoff_calculator():
         x=spot*np.arange(100-spot_range,101+spot_range,0.01)/100
