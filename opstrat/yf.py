@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import yfinance as yf
 
-from helpers import check_ticker, check_optype, check_trtype, payoff_calculator
+from .helpers import check_ticker, check_optype, check_trtype, payoff_calculator
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -15,8 +15,8 @@ abb={'c': 'Call',
     's': 'Short'}
 
 def yf_plotter(ticker='msft',exp='default',spot_range=10,
-               op_list=[{'op_type':'c','strike':250,'tr_type':'b', 'contract':1},
-                        {'op_type':'p','strike':225,'tr_type':'b', 'contract':1}], 
+               op_list=[{'op_type':'c','strike':300,'tr_type':'b', 'contract':1},
+                        {'op_type':'p','strike':280,'tr_type':'b', 'contract':1}], 
                         save=False, file='fig.png'):
     """
     Plots a basic option payoff diagram for a multiple options and resultant payoff diagram
@@ -104,10 +104,8 @@ def yf_plotter(ticker='msft',exp='default',spot_range=10,
         op_pr=df[df.strike==strike].lastPrice.sum()
         try:
             contract=op['contract']
-            print('Setting contract =', contract)
         except:
             contract=1
-            print('default')
         
         y_list.append(payoff_calculator(x, op_type, strike, op_pr, tr_type, contract))
     
@@ -122,9 +120,6 @@ def yf_plotter(ticker='msft',exp='default',spot_range=10,
                 contract='1'
                 
             label=contract+' '+str(abb[op_list[i]['tr_type']])+' '+str(abb[op_list[i]['op_type']])+' ST: '+str(op_list[i]['strike'])
-            print(label)
-            print(len(x))
-            print(len(y_list[i]))
             sns.lineplot(x=x, y=y_list[i], label=label, alpha=0.5)
             y+=np.array(y_list[i])
         

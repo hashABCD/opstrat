@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from helpers import payoff_calculator, check_optype, check_trtype
+from .helpers import payoff_calculator, check_optype, check_trtype
 
 abb={'c': 'Call',
     'p': 'Put',
@@ -85,7 +85,6 @@ def multi_plotter(spot_range=20, spot=100,
                 contract='1'
                 
             label=contract+' '+str(abb[op_list[i]['tr_type']])+' '+str(abb[op_list[i]['op_type']])+' ST: '+str(op_list[i]['strike'])
-            print(len(x),len(y_list[i]))
             sns.lineplot(x=x, y=y_list[i], label=label, alpha=0.5)
             y+=np.array(y_list[i])
         
