@@ -28,6 +28,6 @@ def check_ticker(ticker):
     Check ticker
     """
     try:
-        return yf.Ticker('msft').info['currentPrice']
+        return yf.Ticker(ticker).info['currentPrice']
     except KeyError:
         raise ValueError('Ticker not recognized')
