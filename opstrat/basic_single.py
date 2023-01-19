@@ -56,20 +56,32 @@ def single_plotter(op_type='c',spot=100, spot_range=10,strike=102,tr_type='b',op
     
     def payoff_calculator():
         x=spot*np.arange(100-spot_range,101+spot_range,0.01)/100
-        
         y=[]
         if str.lower(op_type)=='c':
+            breakeven = (strike * 100)+op_pr
             for i in range(len(x)):
                 y.append(max((x[i]-strike-op_pr),-op_pr))
+            if tr_type=='s':
+                max_loss='∞'
+                max_gain=op_pr
+            else:
+                max_loss=op_pr
+                max_gain='∞'
         else:
+            breakeven = (strike*100)-op_pr
             for i in range(len(x)):
                 y.append(max(strike-x[i]-op_pr,-op_pr))
-
+            if tr_type=='s':
+                max_loss='∞'
+                max_gain=op_pr
+            else:
+                max_loss=op_pr
+                max_gain='∞'
         if str.lower(tr_type)=='s':
             y=-np.array(y)
-        return x,y
+        return x,y,max_gain,max_loss,breakeven
         
-    x,y=payoff_calculator()
+    x,y,max_gain,max_loss,breakeven=payoff_calculator()
     y0=np.zeros_like(x)
     
     def plotter(x,y):
@@ -87,3 +99,4 @@ def single_plotter(op_type='c',spot=100, spot_range=10,strike=102,tr_type='b',op
         plt.show()
     
     plotter(x,y)
+    return {'max_loss':max_loss,'max_gain':max_gain,'breakeven':breakeven}
