@@ -56,20 +56,30 @@ def single_plotter(op_type='c',spot=100, spot_range=10,strike=102,tr_type='b',op
     
     def payoff_calculator():
         x=spot*np.arange(100-spot_range,101+spot_range,0.01)/100
-        
         y=[]
         if str.lower(op_type)=='c':
             for i in range(len(x)):
                 y.append(max((x[i]-strike-op_pr),-op_pr))
+            if tr_type=='s':
+                max_loss='∞'
+                max_gain=op_pr
+            else:
+                max_loss=op_pr
+                max_gain='∞'
         else:
             for i in range(len(x)):
                 y.append(max(strike-x[i]-op_pr,-op_pr))
-
+            if tr_type=='s':
+                max_loss='∞'
+                max_gain=op_pr
+            else:
+                max_loss=op_pr
+                max_gain='∞'
         if str.lower(tr_type)=='s':
             y=-np.array(y)
-        return x,y
+        return x,y,max_gain,max_loss
         
-    x,y=payoff_calculator()
+    x,y,max_gain,max_loss=payoff_calculator()
     y0=np.zeros_like(x)
     
     def plotter(x,y):
@@ -77,10 +87,17 @@ def single_plotter(op_type='c',spot=100, spot_range=10,strike=102,tr_type='b',op
         sns.lineplot(x=x, y=y)
         plt.axhline(color='k', linestyle='--')
         plt.axvline(x=spot, color='r', linestyle='--')
+        font = {'family': 'serif',
+                'color': 'purple',
+                'weight': 'bold',
+                'size':16,
+                }
+        plt.text(s="Max Gain= $"+str(max_gain),x=min(x)-1,y=max(y),fontdict=font)
+        plt.text(s="Max Loss= $"+str(max_loss),x=min(x)-1,y=max(y)-1,fontdict=font)
         title=str(abb[op_type])+' '+str(abb[tr_type])+'\n St price :'+str(strike)
         plt.fill_between(x, y, 0, alpha=0.2, where=y>y0, facecolor='green', interpolate=True)
         plt.fill_between(x, y, 0, alpha=0.2, where=y<y0, facecolor='red', interpolate=True)
-        plt.title(title)
+        plt.title(title,fontdict=font)
         plt.tight_layout()
         if save==True:
             plt.savefig(file)
