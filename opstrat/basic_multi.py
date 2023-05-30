@@ -1,12 +1,14 @@
 #multiplotter
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
 
-from .helpers import payoff_calculator, check_optype, check_trtype
+from .helpers import check_optype, check_trtype, payoff_calculator
 
 abb={'c': 'Call',
     'p': 'Put',
+    'bc': 'Binary Call',
+    'bp': 'Binary Put',
     'b': 'Long',
     's': 'Short'}
 
@@ -34,8 +36,8 @@ def multi_plotter(spot_range=20, spot=100,
           Transaction Type>> 'b': long, 's': short
        'op_pr': int, float, default: 10
           Option Price
-       'op_type': kind {'c','p'}, default:'c'
-          Opion type>> 'c': call option, 'p':put option
+        'op_type': kind {'c','p', 'bc', 'bp'}, default:'c'
+            Opion type>> 'c': call option, 'p':put option, 'bc':binary call, 'bp': binary put 
        'contracts': int default:1, optional
            Number of contracts
     
