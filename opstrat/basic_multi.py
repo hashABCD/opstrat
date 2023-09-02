@@ -3,17 +3,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from .helpers import payoff_calculator, check_optype, check_trtype
+from .helpers import payoff_calculator, check_optype, check_trtype, calculate_days_to_exp
 
 abb={'c': 'Call',
     'p': 'Put',
     'b': 'Long',
     's': 'Short'}
 
-def multi_plotter(spot_range=20, spot=100,
+def multi_plotter(spot_range=20, spot=100,  
                 op_list=[{'op_type':'c','strike':110,'tr_type':'s','op_pr':2,'contract':1},
-                {'op_type':'p','strike':95,'tr_type':'s','op_pr':6,'contract':1}], 
-                  save=False, file='fig.png'):
+                {'op_type':'p','strike':95,'tr_type':'s','op_pr':6,'contract':1,'exp_date':'01-Jan-2025'}], 
+                  save=False, file='fig.png', v=20, r=5.3):
     """
     Plots a basic option payoff diagram for a multiple options and resultant payoff diagram
     
@@ -38,13 +38,20 @@ def multi_plotter(spot_range=20, spot=100,
           Opion type>> 'c': call option, 'p':put option, 's':stock
        'contracts': int default:1, optional
            Number of contracts
+        'exp_date': str, default '01-Jan-2023'
+            Expiration date for contract
     
     save: Boolean, default False
         Save figure
     
     file: String, default: 'fig.png'
         Filename with extension
+        
+    v: int, float, default 20%
+        Option Volatility
     
+    r: int, float, default 5.3
+        Risk Free Rate
     Example
     -------
     op1={'op_type':'c','strike':110,'tr_type':'s','op_pr':2,'contract':1}
@@ -76,7 +83,16 @@ def multi_plotter(spot_range=20, spot=100,
             
         except:
             contract=1
-        y_list.append(payoff_calculator(x, op_type, strike, op_pr, tr_type, contract))
+        
+        try:
+            if op_type == 's':
+                days_to_expiration = 0
+            else:
+                days_to_expiration = calculate_days_to_exp(op['exp_date'])
+        except:
+            days_to_expiration = 0 
+            
+        y_list.append(payoff_calculator(x, op_type, strike, op_pr, tr_type, contract, days_to_expiration, r, v))
     
 
     def plotter():
