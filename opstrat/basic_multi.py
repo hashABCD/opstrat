@@ -34,8 +34,8 @@ def multi_plotter(spot_range=20, spot=100,
           Transaction Type>> 'b': long, 's': short
        'op_pr': int, float, default: 10
           Option Price
-       'op_type': kind {'c','p'}, default:'c'
-          Opion type>> 'c': call option, 'p':put option
+       'op_type': kind {'c','p','s'}, default:'c'
+          Opion type>> 'c': call option, 'p':put option, 's':stock
        'contracts': int default:1, optional
            Number of contracts
     
@@ -69,7 +69,11 @@ def multi_plotter(spot_range=20, spot=100,
         strike=op['strike']
         op_pr=op['op_pr']
         try:
-            contract=op['contract']
+            if op_type == 's':
+                contract=op['contract']/100
+            else:
+                contract=op['contract']
+            
         except:
             contract=1
         y_list.append(payoff_calculator(x, op_type, strike, op_pr, tr_type, contract))
