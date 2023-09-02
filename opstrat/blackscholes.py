@@ -2,10 +2,10 @@ import numpy as np
 from scipy.stats import norm
 
 
-def black_scholes(t=40, r=4.00, v=32.00, K=60, St=62, type='c'):
+def black_scholes(t=40, r=4.80, v=32.00, K=60, St=62, type='c'):
     """
     Parameters:
-    K : Excercise Price
+    K : Strike Price
     St: Current Stock Price
     v : Volatility in percentage
     r : Risk free rate in percentage
