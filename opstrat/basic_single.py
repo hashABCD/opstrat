@@ -61,10 +61,13 @@ def single_plotter(op_type='c',spot=100, spot_range=10,strike=102,tr_type='b',op
         if str.lower(op_type)=='c':
             for i in range(len(x)):
                 y.append(max((x[i]-strike-op_pr),-op_pr))
-        else:
+        elif op_type=='p':
             for i in range(len(x)):
                 y.append(max(strike-x[i]-op_pr,-op_pr))
-
+        else:
+             for i in range(len(x)):
+                y.append(x[i]-strike-op_pr)
+            
         if str.lower(tr_type)=='s':
             y=-np.array(y)
         return x,y
