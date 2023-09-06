@@ -2,6 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from datetime import datetime
 
 from .helpers import payoff_calculator, check_optype, check_trtype, calculate_days_to_exp
 
@@ -13,7 +14,7 @@ abb={'c': 'Call',
 def multi_plotter(spot_range=20, spot=100,  
                 op_list=[{'op_type':'c','strike':110,'tr_type':'s','op_pr':2,'contract':1},
                 {'op_type':'p','strike':95,'tr_type':'s','op_pr':6,'contract':1,'exp_date':'01-Jan-2025'}], 
-                  exp_adjust=0,save=False, file='fig.png', v=20, r=5.3):
+                  exp_adjust_date="",save=False, file='fig.png', v=20, r=5.3):
     """
     Plots a basic option payoff diagram for a multiple options and resultant payoff diagram
     
@@ -41,8 +42,8 @@ def multi_plotter(spot_range=20, spot=100,
         'exp_date': str, default '01-Jan-2023'
             Expiration date for contract
     
-    exp_adjust: Int, default: 0
-        Days to adjust the expiration. Allows user to specify the date they want the payoff diagram shown.
+    exp_adjust_date: Str, default: ""
+        Allows user to specify the date they want a future payoff diagram shown.
         
     save: Boolean, default False
         Save figure
@@ -69,6 +70,11 @@ def multi_plotter(spot_range=20, spot=100,
     # Define Range of Prices to Graph
     x=spot*np.arange(100-spot_range,101+spot_range,0.01)/100
     y0=np.zeros_like(x)         
+    
+    if exp_adjust_date != "":
+        exp_adjust = calculate_days_to_exp(exp_adjust_date)
+    else:
+        exp_adjust=0
     
     # Initalize Y Axis List to be built from Risk Graphs
     y_list=[]
@@ -168,11 +174,11 @@ def multi_plotter(spot_range=20, spot=100,
                 y_exp+=np.array(y_exp_list[i])
         
         # Plot Current Day Payoff Diagram
-        sns.lineplot(x=x, y=y, label='combined', alpha=1, color='k')
+        sns.lineplot(x=x, y=y, label='Combined As of Today', alpha=1, color='k')
         
         # Plot Adjusted Expiration Payoff Diagram
         if exp_adjust > 0: 
-            sns.lineplot(x=x, y=y_exp, label='expiration', alpha=1)
+            sns.lineplot(x=x, y=y_exp, label=f'As of {exp_adjust_date}', alpha=1)
             
         # Prepare Plot Diagram
         plt.axhline(color='k', linestyle='--')
