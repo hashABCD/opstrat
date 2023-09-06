@@ -67,6 +67,7 @@ def multi_plotter(spot_range=20, spot=100,
     y0=np.zeros_like(x)         
     
     y_list=[]
+    min_exp = 1000
     for op in op_list:
         op_type=str.lower(op['op_type'])
         tr_type=str.lower(op['tr_type'])
@@ -89,14 +90,45 @@ def multi_plotter(spot_range=20, spot=100,
                 days_to_expiration = 0
             else:
                 days_to_expiration = calculate_days_to_exp(op['exp_date'])
+                op['days_to_expiration'] = days_to_expiration
+                if days_to_expiration < min_exp:
+                    min_exp = days_to_expiration
         except:
             days_to_expiration = 0 
             
         y_list.append(payoff_calculator(x, op_type, strike, op_pr, tr_type, contract, days_to_expiration, r, v))
     
+    y_exp_list=[]
+    for op in op_list:
+        op_type=str.lower(op['op_type'])
+        tr_type=str.lower(op['tr_type'])
+        check_optype(op_type)
+        check_trtype(tr_type)
+        
+        strike=op['strike']
+        op_pr=op['op_pr']
+        try:
+            if op_type == 's':
+                contract=op['contract']/100
+            else:
+                contract=op['contract']
+            
+        except:
+            contract=1
+        
+        try:
+            if op_type == 's':
+                days_to_expiration = 0
+            else:
+                days_to_expiration = calculate_days_to_exp(op['exp_date']) - min_exp
+        except:
+            days_to_expiration = 0 
+            
+        y_exp_list.append(payoff_calculator(x, op_type, strike, op_pr, tr_type, contract, days_to_expiration, r, v))
 
     def plotter():
         y=0
+        y_exp=0
         plt.figure(figsize=(10,6))
         for i in range (len(op_list)):
             try:
@@ -107,8 +139,10 @@ def multi_plotter(spot_range=20, spot=100,
             label=contract+' '+str(abb[op_list[i]['tr_type']])+' '+str(abb[op_list[i]['op_type']])+' ST: '+str(op_list[i]['strike'])
             sns.lineplot(x=x, y=y_list[i], label=label, alpha=0.5)
             y+=np.array(y_list[i])
+            y_exp+=np.array(y_exp_list[i])
         
         sns.lineplot(x=x, y=y, label='combined', alpha=1, color='k')
+        sns.lineplot(x=x, y=y_exp, label='expiration', alpha=1)
         plt.axhline(color='k', linestyle='--')
         plt.axvline(x=spot, color='r', linestyle='--', label='spot price')
         plt.legend()
