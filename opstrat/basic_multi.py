@@ -14,7 +14,7 @@ abb={'c': 'Call',
 def multi_plotter(spot_range=20, spot=100,  
                 op_list=[{'op_type':'c','strike':110,'tr_type':'s','op_pr':2,'contract':1},
                 {'op_type':'p','strike':95,'tr_type':'s','op_pr':6,'contract':1,'exp_date':'01-Jan-2025'}], 
-                  exp_adjust_date="",save=False, file='fig.png', v=20, r=5.3, show_individual=True):
+                  exp_adjust_date="",save=False, file='fig.png', v=20, r=5.3, show_individual=True, graph_header='Multiple Options Plotter'):
     """
     Plots a basic option payoff diagram for a multiple options and resultant payoff diagram
     
@@ -59,6 +59,9 @@ def multi_plotter(spot_range=20, spot=100,
         
     show_individual: Boolean, default True
         Show individual legs on payoff chart
+        
+    graph_header: String, Default: Multiple Options Plotter
+        Allows User to Pass in Chart Header Variable
         
     Example
     -------
@@ -190,7 +193,7 @@ def multi_plotter(spot_range=20, spot=100,
         plt.axvline(x=spot, color='r', linestyle='--', label='spot price')
         plt.legend()
         plt.legend(loc='upper right')
-        title="Multiple Options Plotter"
+        title=graph_header
         plt.title(title)
         plt.fill_between(x, y, 0, alpha=0.2, where=y>y0, facecolor='green', interpolate=True)
         plt.fill_between(x, y, 0, alpha=0.2, where=y<y0, facecolor='red', interpolate=True)
