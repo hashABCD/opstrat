@@ -12,7 +12,8 @@ op_list=[op1
         # , op4
         # , op5
          ]
-op.multi_plotter(spot=212.26,spot_range=10, exp_adjust=9, op_list=op_list)
+# op.multi_plotter(spot=212.26,spot_range=10, op_list=op_list)
+op.multi_plotter(spot=212.26,spot_range=10, exp_adjust_date='15-Sep-23', op_list=op_list)
 
 # op.single_plotter(spot=212.26, spot_range=10, strike=210, op_type='s', tr_type='s', op_pr=0)
 # op.single_plotter(spot=212.26, spot_range=10, strike=210, op_type='s', tr_type='b', op_pr=0)
