@@ -14,7 +14,7 @@ abb={'c': 'Call',
 def multi_plotter(spot_range=20, spot=100,  
                 op_list=[{'op_type':'c','strike':110,'tr_type':'s','op_pr':2,'contract':1},
                 {'op_type':'p','strike':95,'tr_type':'s','op_pr':6,'contract':1,'exp_date':'01-Jan-2025'}], 
-                  exp_adjust_date="",save=False, file='fig.png', v=20, r=5.3):
+                  exp_adjust_date="",save=False, file='fig.png', v=20, r=5.3, show_individual=True):
     """
     Plots a basic option payoff diagram for a multiple options and resultant payoff diagram
     
@@ -56,6 +56,10 @@ def multi_plotter(spot_range=20, spot=100,
     
     r: int, float, default 5.3
         Risk Free Rate
+        
+    show_individual: Boolean, default True
+        Show individual legs on payoff chart
+        
     Example
     -------
     op1={'op_type':'c','strike':110,'tr_type':'s','op_pr':2,'contract':1}
@@ -162,9 +166,10 @@ def multi_plotter(spot_range=20, spot=100,
             except:
                 contract='1'
                 
-            label=contract+' '+str(abb[op_list[i]['tr_type']])+' '+str(abb[op_list[i]['op_type']])+' ST: '+str(op_list[i]['strike'])
             # Plot Indiivdual Price Leg Payoff Diagram
-            sns.lineplot(x=x, y=y_list[i], label=label, alpha=0.5)
+            if show_individual == True:
+                label=contract+' '+str(abb[op_list[i]['tr_type']])+' '+str(abb[op_list[i]['op_type']])+' ST: '+str(op_list[i]['strike'])
+                sns.lineplot(x=x, y=y_list[i], label=label, alpha=0.5)
             
             # Add individual leg price to combined leg
             y+=np.array(y_list[i])
