@@ -27,6 +27,7 @@ setup(
     install_requires=['matplotlib', 
                       'pandas', 
                       'numpy',
+                      'scipy',
                       'seaborn',
                       'yfinance'],
     keywords=['python', 
